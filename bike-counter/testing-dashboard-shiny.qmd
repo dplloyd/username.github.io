@@ -1,0 +1,61 @@
+---
+title: "Cycling Scotland Bike Counts"
+author: "Number of bikes counted in the previous seven days"
+format: dashboard
+server: shiny
+---
+
+```{r}
+#| context: setup
+library(tidyverse)
+library(ggplot2)
+library(DT)
+source("R/fetch_bike_data.R")
+source("R/precalcs.R")
+```
+
+#  {.sidebar}
+
+```{r}
+dateInput("date_selected","Date", value = Sys.Date() - 8,
+  format = "yyyy-mm-dd")
+```
+
+```{r}
+selectInput("area_selected", "Select area", choices = all_areas)
+```
+# Counts
+
+## Row {height=50%}
+
+```{r}
+leaflet::leafletOutput("map1")
+```
+## Row {height=50%}
+
+```{r}
+dataTableOutput('data')
+```
+
+```{r}
+#| context: server
+
+dataset <- reactive({
+  
+  fetch_bike_data(input$date_selected)
+  
+})
+
+output$plot <- renderPlot({
+  
+})
+
+output$data <- renderDataTable({
+  dataset() |> 
+    select(area, location, startTime, count)
+})
+
+output$map1 <- leaflet::renderLeaflet({
+  
+})
+```

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Number of bikes counted in the previous seven days">
+
+<title>Cycling Scotland Bike Counts</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="testing-dashboard_files/libs/clipboard/clipboard.min.js"></script>
+<script src="testing-dashboard_files/libs/quarto-html/quarto.js"></script>
+<script src="testing-dashboard_files/libs/quarto-html/popper.min.js"></script>
+<script src="testing-dashboard_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="testing-dashboard_files/libs/quarto-html/anchor.min.js"></script>
+<link href="testing-dashboard_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="testing-dashboard_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="testing-dashboard_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="testing-dashboard_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="testing-dashboard_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="testing-dashboard_files/libs/quarto-dashboard/quarto-dashboard.js"></script>
+<script src="testing-dashboard_files/libs/quarto-dashboard/stickythead.js"></script>
+<script src="testing-dashboard_files/libs/quarto-dashboard/datatables.min.js" kdttablesentinel="true"></script>
+<script src="testing-dashboard_files/libs/quarto-dashboard/pdfmake.min.js" kdttablesentinel="true"></script>
+<script src="testing-dashboard_files/libs/quarto-dashboard/vfs_fonts.js" kdttablesentinel="true"></script>
+<script src="testing-dashboard_files/libs/quarto-dashboard/web-components.js" type="module"></script>
+<script src="testing-dashboard_files/libs/quarto-dashboard/components.js"></script>
+<link href="testing-dashboard_files/libs/quarto-dashboard/datatables.min.css" rel="stylesheet" kdttablesentinel="true">
+<script src="testing-dashboard_files/libs/core-js-2.5.3/shim.min.js"></script>
+<script src="testing-dashboard_files/libs/react-18.2.0/react.min.js"></script>
+<script src="testing-dashboard_files/libs/react-18.2.0/react-dom.min.js"></script>
+<script src="testing-dashboard_files/libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="testing-dashboard_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="testing-dashboard_files/libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="testing-dashboard_files/libs/reactable-binding-0.4.4/reactable.js"></script>
+<script src="testing-dashboard_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="testing-dashboard_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="testing-dashboard_files/libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="testing-dashboard_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="testing-dashboard_files/libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="testing-dashboard_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="testing-dashboard_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="testing-dashboard_files/libs/leaflet-binding-2.2.1/leaflet.js"></script>
+
+
+</head>
+
+<body class="quarto-dashboard dashboard-fill fullcontent">
+
+<header id="quarto-dashboard-header">
+<nav class="navbar navbar-expand-md slim" data-bs-theme="dark">
+  <div class="navbar-container container-fluid">
+    <button class="navbar-toggler hidden" type="button" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-controls="dashboard-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>    
+
+
+    <div class="navbar-brand-container">       
+
+      <div class="navbar-title">
+        <div class="navbar-title-text"><a href="#">Cycling Scotland Bike Counts</a></div>
+        
+        <div class="navbar-author">Number of bikes counted in the previous seven days</div>
+      </div>
+    </div>
+</div>
+</nav>
+</header>
+<div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container bslib-page-fill">  
+
+<div class="bslib-grid-item html-fill-item bslib-grid" data-layout="fill" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card valuebox cell bslib-card html-fill-container bslib-value-box bg-primary showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div data-icon="bicycle" class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-bicycle"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Total bikes counted in previous seven days
+</p>
+<p class="value-box-value">
+46,489
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell bslib-card html-fill-container bslib-value-box bg-secondary showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div data-icon="activity" class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-activity"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Total bikes counted yesterday
+</p>
+<p class="value-box-value">
+5,799
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="reactable html-widget html-fill-item html-fill-container" id="htmlwidget-1987e9ae5c962cea4ceb" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1987e9ae5c962cea4ceb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"area":["Aberdeenshire","Aberdeenshire","Aberdeenshire","Aberdeenshire","Aberdeenshire","Aberdeen","Aberdeen","Angus","Angus","Angus","Clackmannanshire","Clackmannanshire","Clackmannanshire","Dumfries and Galloway","Dumfries and Galloway","Dumfries and Galloway","Dundee City","Dundee City","Dundee City","East Ayrshire","East Ayrshire","East Ayrshire","Edinburgh","Edinburgh","Edinburgh","East Dunbartonshire","East Dunbartonshire","East Dunbartonshire","East Dunbartonshire","East Dunbartonshire","East Lothian","East Lothian","East Lothian","East Renfrewshire","East Renfrewshire","East Renfrewshire","East Renfrewshire","Falkirk","Falkirk","Falkirk","Falkirk","Fife","Fife","Glasgow","Glasgow","Glasgow","Highland","Highland","Inverclyde","Inverclyde","Inverclyde","Midlothian","Midlothian","Moray","North Ayrshire","North Ayrshire","North Lanarkshire","North Lanarkshire","Orkney","Orkney","Orkney","Orkney","Orkney","Perth and Kinross","Perth and Kinross","Renfrewshire","South Ayrshire","South Ayrshire","Scottish Borders","Scottish Borders","Scottish Borders","South Lanarkshire","Stirling","Stirling","Stirling","Stirling","Stirling","West Dunbartonshire","West Dunbartonshire","West Dunbartonshire","West Lothian","West Lothian","West Lothian"],"location":["Peterhead, Ravenscraig Road / F&B Way","Peterhead, Maggie Black's Trail","Westhill, Old Skene Road (Eastbound)","Aboyne, Ballater Road (Westbound)","Longside, F&B Way","Aberdeen, A944 Lang Stracht (PATH - Eastbound)","Aberdeen, Victoria Road (Northbound)","Forfar, Loch Path","Montrose, Marine Ave","Arbroath, Keptie Street","Alloa, Alloa Road","Alloa, Lornshill Road","Alloa, Whins Road","Dalbeattie, A710 (N of Church Crescent)","Dalbeattie, A710 (S of Church Crescent)","Cargenbridge, A771 (Path)","Dundee, Arbroath Road","Dundee, Wellbank Lane","Dundee, Tay Road Bridge","Fenwick, Ayr Road","Hurlford, Sir Chris Hoy Cycle Way","Auchinleck, Cumnock Route","Edinburgh, Lower Granton Road","Edinburgh, Picardy Place","Edinburgh, The Pillars","Lennoxtown, Strathkelvin Railway Path","Balmore, Balmore Road (Branziet Cottages)","Bearsden, Craigdhu Burn","Mugdock, Mugdock Wood","Lenzie, Woodside Road","Musselburgh, Electric Bridge","Ormiston, Ormiston Station","Wallyford, Drift Path","Newton Mearns, Ayr Road","Barrhead, Carlibar Park","Newton Mearns, Capelrig Burn (Central)","Giffnock, Fenwick Road","Larbert, Bellsdyke Road","Grangemouth, Lauriston Road","Denny, Winchester Avenue","Denny, Dunipace Rail Line","Dunfermline, Kingseat Road","Kirkcaldy, Dunnikier Road","Glasgow, Portland Bridge","Glasgow, Parson Street","Glasgow, Clyde Tunnel Southbound","Fort William, River Ness Bridge","Fort William, River Lochy Path","Greenock, Esplanade","Kilmacolm, NCN75","Gourock, Cloch Lighthouse","Lasswade, A772 Gilmerton Road","Lasswade, A768 Lasswade Road","Elgin, Burn of Linkwood","Ardrossan, A78 Eglinton Road","Irvine, Milgarholm Park","Motherwell, Roman Road","Airdrie, Woodside Road","Stromness, Ferry Road","Burray, Village Road","Finstown, A965","Kirkwall, Foreland Road","Kirkwall, Pickaquoy Road","Perth, Glasgow Road","Pitcairngreen, C408","Paisley, Lochfield Road","Ayr, Holmston Road","Girvan, Victory Park Road","Kelso, A698","Tweedbank, The Boneyard","Peebles,The Tweed Valley Railway Path","East Kilbride, Stewartfield Way","Stirling, Broom Road (Afton Court)","Stirling, Pike Road (Targe Wynd)","Callander, Glen Gardens","Cowie, Manse Park","Bridge of Allan, Cornton Road","Clydebank, Cable Depot Road","Clydebank, Kilbowie Road","Dumbarton, Stirling Road","Livingston, Morrison Way","Broxburn, A89 (Path)","Bathgate, A779 Starlaw Road (Path)"],"total":[446,98,153,16,17,214,80,40,22,322,337,150,123,341,441,247,7959,291,953,389,59,68,2147,10851,590,333,148,139,154,236,2640,101,207,1014,97,56,808,226,535,109,719,72,370,1527,870,927,1046,658,403,145,323,638,218,108,351,31,98,175,157,17,51,101,155,184,74,93,110,42,46,423,503,47,392,8,28,167,576,374,84,107,312,341,261],"total_previous":[519,144,147,99,44,300,88,53,10,362,296,169,151,321,353,225,7824,647,924,339,55,73,2043,10233,584,270,139,135,200,243,2181,96,230,805,90,52,803,165,513,98,700,62,305,1351,784,855,769,512,314,103,243,562,195,103,264,29,68,156,178,26,107,85,209,181,58,91,94,40,29,387,441,63,433,60,23,126,550,371,68,95,212,313,217],"count_diff":[-73,-46,6,-83,-27,-86,-8,-13,12,-40,41,-19,-28,20,88,22,135,-356,29,50,4,-5,104,618,6,63,9,4,-46,-7,459,5,-23,209,7,4,5,61,22,11,19,10,65,176,86,72,277,146,89,42,80,76,23,5,87,2,30,19,-21,-9,-56,16,-54,3,16,2,16,2,17,36,62,-16,-41,-52,5,41,26,3,16,12,100,28,44]},"columns":[{"id":"area","name":"area","type":"character"},{"id":"location","name":"location","type":"character"},{"id":"total","name":"total","type":"numeric"},{"id":"total_previous","name":"total_previous","type":"numeric"},{"id":"count_diff","name":"count_diff","type":"numeric","style":[{"background":"#9CBCC7FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#A9C5CEFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C2D6DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#98B9C4FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#B3CBD3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#96B8C3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#BCD1D9FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#B9CFD7FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C5D8DEFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#ACC7D0FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#D3E1E6FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#B6CED6FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#B2CBD3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C9DAE0FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#EAF0F3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#CADBE1FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FEFEFCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#15607AFF","color":"white","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#CDDDE3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#D8E4E8FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#BDD2D9FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#F2F6F7FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FA8C00FF","color":"white","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C2D6DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#DEE8ECFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C4D7DDFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#A9C5CEFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#BCD1D9FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FBB153FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C2D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#B5CCD4FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FEECD6FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C3D6DDFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C2D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#DDE8EBFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#CADBE1FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C5D7DEFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C9DAE0FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C4D7DDFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#DFE9ECFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FEF4E7FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#E9F0F2FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#E2EBEEFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FDDCB2FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FEFBF7FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#EAF1F3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#D4E1E6FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#E6EEF1FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#E4EDEFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#CBDBE1FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C2D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#E9F0F2FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D4DBFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#CEDEE3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C9DAE0FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#B5CDD5FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#BBD1D8FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#A5C1CBFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C7D9DFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#A6C2CCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C7D9DFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D4DBFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C7D9DFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D4DBFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C8D9DFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#D1DFE5FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#DDE8ECFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#B8CFD6FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#ACC6D0FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#A7C3CDFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C2D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#D3E1E6FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#CCDCE2FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C1D5DCFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C7D9DFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#C5D8DEFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#F0F4F6FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#CDDDE2FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#D5E2E7FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"}]}],"dataKey":"98ed9a9d43efd3dc8c45d16f9a5f40c6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div><div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="leaflet html-widget html-fill-item html-fill-container" id="htmlwidget-780444d9511d75906a88" style="width:100%;height:406px;"></div>
+<script type="application/json" data-for="htmlwidget-780444d9511d75906a88">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addCircleMarkers","args":[[57.508526,57.514227,57.153229,57.078013,57.521534,57.150644,57.136633,56.64328,56.70988,56.55922,56.1101,56.13161,56.13088,54.929985,54.929293,55.057219,56.47797,56.47102,56.447302,55.678565,55.593544,55.460026,55.980376,55.956598,55.909677,55.966199,55.935016,55.931855,55.963738,55.927503,55.945419,55.917284,55.936364,55.778177,55.80234,55.78082,55.812079,56.03251,56.004,56.02633,56.02029,56.08681,56.13354,55.85441,55.865671,55.87302,56.82453,56.834279,55.960134,55.8971,55.942819,55.89873,55.88322,57.63535,55.65633,55.607069,55.79439,55.884907,58.96391,58.84653,59.0058,58.97269,58.98193,56.39557,56.433672,55.83142,55.45645,55.24001,55.596732,55.607345,55.64802,55.77515,56.107956,56.09947,56.24118,56.083739,56.14911,55.905076,55.921667,55.957735,55.9125,55.92592,55.89583],[-1.795369,-1.807192,-2.280889,-2.776048,-1.938572,-2.183528,-2.080352,-2.89686,-2.46255,-2.59894,-3.7556,-3.80771,-3.77483,-3.827677,-3.827565,-3.638097,-2.88583,-3.00433,-2.933954,-4.428598,-4.4446713,-4.280894,-3.208,-3.186243,-3.139099,-4.186371,-4.262402,-4.317793,-4.342383,-4.148223,-3.050591,-2.936534,-3.0267184,-4.32249,-4.39046,-4.3352,-4.292457,-3.82528,-3.74209,-3.905,-3.90172,-3.4282,-3.15006,-4.256008,-4.237144,-4.3287,-5.09984,-5.07655,-4.775124,-4.63373,-4.877661,-3.107888,-3.12406,-3.285527,-4.82753,-4.656897,-3.99142,-3.83434,-3.29694,-2.91421,-3.11382,-2.9636,-2.96945,-3.44318,-3.518692,-4.4035,-4.61547,-4.85179,-2.421093,-2.765429,-3.1623,-4.19594,-3.92651,-3.91265,-4.19925,-3.870062,-3.94759,-4.420555,-4.40235,-4.559616,-3.52612,-3.5,-3.60171],[1.363552522364659,1.074702573088629,1.120354145531679,1.006640228718989,1.007470257308863,1.170985889513972,1.059762058470903,1.026560914875957,1.011620400258231,1.260628977220327,1.273079406068431,1.117864059762058,1.09545328783547,1.276399520427926,1.359402379415291,1.198376832979803,7.599557318085401,1.234898090934243,1.7843770174306,1.316240892741861,1.042331458083556,1.049801715392419,2.77543115373974,10,1.483076639306465,1.269759291708937,1.116204002582311,1.108733745273448,1.121184174121553,1.189246518491192,3.18463524854745,1.07719265885825,1.165175689384857,1.835008761412893,1.073872544498755,1.039841372313935,1.664022871898921,1.180946232592456,1.437425066863414,1.083832887577239,1.590150327400166,1.053121829751914,1.300470349534262,2.260813428018076,1.715484644471087,1.762796274093886,1.86156967628885,1.539518583417873,1.327861293000092,1.11371391681269,1.2614590058102,1.5229180116204,1.174306003873467,1.083002858987365,1.284699806326662,1.019090657567094,1.074702573088629,1.1386147745089,1.123674259891174,1.007470257308863,1.035691229364567,1.07719265885825,1.122014202711427,1.146085031817763,1.054781886931661,1.07055243013926,1.084662916167112,1.028220972055704,1.031541086415199,1.344461864797565,1.410864151987457,1.032371115005073,1.318730978511482,1,1.016600571797473,1.131974545789911,1.471456239048234,1.303790463893756,1.063082172830397,1.082172830397492,1.25232869132159,1.276399520427926,1.209997233238034],null,null,{"interactive":true,"className":"","stroke":false,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.5},null,null,null,null,null,{"textsize":"15px"},null]},{"method":"addTiles","args":["http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",null,null,{"minZoom":5,"maxZoom":10,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"limits":{"lat":[54.929293,59.0058],"lng":[-5.09984,-1.795369]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden">
+
+</div>
+</div>
+</div>
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /container fluid -->
+
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (_event) {
+  if (window.bslib.Card) {
+    window.bslib.Card.initializeAllCards();
+  }
+}); 
+</script>
+  
+
+
+
+</body></html>

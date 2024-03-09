@@ -1,0 +1,143 @@
+---
+title: "Cycling Scotland Bike Counts"
+author: "Number of bikes counted in the previous seven days"
+format: 
+  dashboard:
+    orientation: columns
+    theme: flatly
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| context: setup
+library(tidyverse)
+library(ggplot2)
+library(reactable)
+library(reactablefmtr)
+library(leaflet)
+source("R/fetch_bike_data.R")
+source("R/precalcs.R")
+```
+
+
+```{r}
+# Get data from uSmart
+fortnight_data <- fetch_bike_data(Sys.Date() - 15) |> 
+  mutate(relative_week = as_date(startTime) - Sys.Date()-1)
+
+week_data <- fortnight_data |> filter(relative_week >= -7)
+
+twoweeksbefore_data <- fortnight_data |> filter(relative_week < -7)
+
+location_look_ups <- week_data |> 
+  select(siteID, area, location, longitude, latitude) |> 
+  unique()
+
+```
+
+
+```{r}
+# Aggregate up and match on the long/lat (could have just grouped by tbf)
+cumulative_week_data <- week_data |> group_by(siteID, area, location) |> 
+  summarise(total = sum(count)) |> 
+  left_join(location_look_ups)
+
+cumulative_twoweeksbefore_data <- twoweeksbefore_data |> group_by(siteID) |> 
+  summarise(total = sum(count)) |> rename(total_previous = total)
+
+# Dataframe holds cumulative counts for the previous week, and the one before that.
+all_week_data <- cumulative_week_data |> 
+  left_join(cumulative_twoweeksbefore_data, by = "siteID") |> 
+  mutate(count_diff = total - total_previous)
+
+# Variable for yesterday's count
+yesterday_count <- week_data |> 
+  filter(startTime == Sys.Date() - 1) |> 
+pull(count) |> 
+  sum()
+
+```
+
+
+```{r}
+# Build a map with the cumulative weekly counts at each station
+# 
+mag_pal <- colorBin("inferno", domain = NULL)
+
+count_map <- cumulative_week_data |> 
+  leaflet() |> 
+  addCircleMarkers(
+    stroke = FALSE,
+    color = ~ mag_pal(scales::rescale(total, c(1, 10))),
+    fillOpacity = 0.5,
+    radius = ~ scales::rescale(total, c(1, 10)) ,
+    labelOptions = c(textsize = "15px") ) |> 
+  addTiles("http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", options = tileOptions(minZoom = 5, maxZoom = 10)) 
+```
+
+
+```{r}
+# Build a table of the total counts per station
+
+all_week_data <- all_week_data |>
+  mutate(diff_cols = case_when(count_diff > 0 ~ "darkgreen",
+                               count_diff == 0 ~ "gray",
+                               TRUE ~ "red")) 
+ 
+  
+table_cumulative_week <- all_week_data |>
+  ungroup() |>
+  select(area, location, total, total_previous, count_diff) |> 
+  reactable(columns = list(
+    count_diff = colDef(
+      name = "Change in weekly total",
+      cell = pill_buttons(all_week_data, color_ref = "diff_cols", opacity = 0.7)
+    ),
+    total = colDef(name = glue::glue("{Sys.Date()-8} to {Sys.Date()-1}")),
+    total_previous = colDef(name = glue::glue("{Sys.Date()-15} to {Sys.Date()-9}"))
+  ))
+
+```
+
+
+
+## Column
+
+### Row 
+```{r}
+#| component: valuebox
+#| title: Total bikes counted in previous seven days
+list(
+  icon = "bicycle",
+  color = "primary",
+  value = scales::comma(sum(cumulative_week_data$total))
+)
+```
+
+```{r}
+#| component: valuebox
+#| title: Total bikes counted yesterday
+list(
+  icon = "activity",
+  color = "secondary",
+  value = scales::comma(yesterday_count))
+```
+
+### Row 
+
+```{r}
+table_cumulative_week
+
+```
+
+
+### Row 
+
+## Column
+
+```{r}
+count_map
+
+```
+
