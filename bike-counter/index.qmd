@@ -26,7 +26,8 @@ source("R/precalcs.R")
 fortnight_data <- fetch_bike_data(Sys.Date() - 15) |> 
   mutate(relative_week = as_date(startTime) - Sys.Date()-1) |> 
   mutate(startTime_orig = startTime,
-         startTime = format(as_date(startTime),format =  "%d-%m-%Y"))
+         startTime = as.Date(as_date(startTime), format =  "%d-%m-%Y")
+         )
 
 week_data <- fortnight_data |> filter(relative_week >= -8)
 
@@ -134,6 +135,7 @@ list(
 ### Row 
 
 ```{r}
+#| title: Total bicycle counts recorded over two non-overlapping seven day periods
 table_cumulative_week
 
 ```
