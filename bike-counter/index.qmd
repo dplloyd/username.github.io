@@ -24,11 +24,13 @@ source("R/precalcs.R")
 ```{r}
 # Get data from uSmart
 fortnight_data <- fetch_bike_data(Sys.Date() - 15) |> 
-  mutate(relative_week = as_date(startTime) - Sys.Date()-1)
+  mutate(relative_week = as_date(startTime) - Sys.Date()-1) |> 
+  mutate(startTime_orig = startTime,
+         startTime = format(as_date(startTime),format =  "%d-%m-%Y"))
 
-week_data <- fortnight_data |> filter(relative_week >= -7)
+week_data <- fortnight_data |> filter(relative_week >= -8)
 
-twoweeksbefore_data <- fortnight_data |> filter(relative_week < -7)
+twoweeksbefore_data <- fortnight_data |> filter(relative_week < -8)
 
 location_look_ups <- week_data |> 
   select(siteID, area, location, longitude, latitude) |> 
@@ -53,7 +55,7 @@ all_week_data <- cumulative_week_data |>
 
 # Variable for yesterday's count
 yesterday_count <- week_data |> 
-  filter(startTime == Sys.Date() - 1) |> 
+  filter(startTime_orig == Sys.Date() - 1) |> 
 pull(count) |> 
   sum()
 
@@ -65,13 +67,18 @@ pull(count) |>
 # 
 mag_pal <- colorBin("inferno", domain = NULL)
 
-count_map <- cumulative_week_data |> 
+count_map <- all_week_data |> 
   leaflet() |> 
   addCircleMarkers(
     stroke = FALSE,
     color = ~ mag_pal(scales::rescale(total, c(1, 10))),
     fillOpacity = 0.5,
     radius = ~ scales::rescale(total, c(1, 10)) ,
+    label = ~ paste(
+      location, "<br/>",
+      "Total bikes counted past 7 days:", total , "<br/>", 
+      "A change on the previous 7 days of:",  count_diff
+      ) |> map(html),
     labelOptions = c(textsize = "15px") ) |> 
   addTiles("http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", options = tileOptions(minZoom = 5, maxZoom = 10)) 
 ```
@@ -91,11 +98,11 @@ table_cumulative_week <- all_week_data |>
   select(area, location, total, total_previous, count_diff) |> 
   reactable(columns = list(
     count_diff = colDef(
-      name = "Change in weekly total",
+      name = "Change in rolling seven day total",
       cell = pill_buttons(all_week_data, color_ref = "diff_cols", opacity = 0.7)
     ),
-    total = colDef(name = glue::glue("{Sys.Date()-8} to {Sys.Date()-1}")),
-    total_previous = colDef(name = glue::glue("{Sys.Date()-15} to {Sys.Date()-9}"))
+    total = colDef(name = glue::glue("{min(week_data$startTime)} to {max(week_data$startTime)}")),
+    total_previous = colDef(name = glue::glue("{min(twoweeksbefore_data$startTime)} to {max(twoweeksbefore_data$startTime)}"))
   ))
 
 ```
@@ -137,6 +144,7 @@ table_cumulative_week
 ## Column
 
 ```{r}
+#| title: Map of bike counter locations and counts in previous seven days
 count_map
 
 ```
