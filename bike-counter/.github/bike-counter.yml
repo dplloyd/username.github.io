@@ -27,12 +27,15 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Render 
-        uses: quarto-dev/quarto-actions/publish@v2        
+        uses: quarto-dev/quarto-actions/render@v2
+        with:
+          path: index.qmd
+        
         
       - name: Commit results
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add survey_data.rds
-          git commit -m 'Data updated' || echo "No changes to commit"
+          git add index.html
+          git commit -m 'Cycling count data updated' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
