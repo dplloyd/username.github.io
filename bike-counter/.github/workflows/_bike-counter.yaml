@@ -1,0 +1,40 @@
+on:
+  push:
+    branches: main
+  schedule:
+    - cron: '10 * * * *'
+
+jobs:
+  update-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::tidyverse 
+            any::reactable
+            any::reactablefmtr
+            any::leaflet
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Render 
+        uses: quarto-dev/quarto-actions/render@v2
+        with:
+          path: index.qmd
+        
+      - name: Commit results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add index.html
+          git commit -m 'Cycling count data updated' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
