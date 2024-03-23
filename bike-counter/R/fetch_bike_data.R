@@ -4,7 +4,10 @@
 
 fetch_bike_data <- function(input_date){
   
-  api_secret <- httr2::secret_decrypt("pEqCEJrx5Gt7Mp6KqVJDBM-Eut7t_wb16TFM-ohFQPOjm68gvBfk_X8n6iPj_8-1Vgtk_JQ7PpbErrXY6As-lL_7V3rAL1XTYHOhhw", "EDINBURGHBIKECOUNTS_KEY")
+  # api_secret <- httr2::secret_decrypt("pEqCEJrx5Gt7Mp6KqVJDBM-Eut7t_wb16TFM-ohFQPOjm68gvBfk_X8n6iPj_8-1Vgtk_JQ7PpbErrXY6As-lL_7V3rAL1XTYHOhhw", "EDINBURGHBIKECOUNTS_KEY")
+  
+  # Hard coding the API secret. I know very bad form, but pretty low risk.
+  api_secret <- "$2a$10$taVkPhos79P5aUVvEHwavu38YBN772VJ6lR6DEEfOpaWy3P.s7jBG"
   
   cycline_scotland_url <- "https://api.usmart.io/org/d1b773fa-d2bd-4830-b399-ecfd18e832f3/5421f510-69b1-4deb-a319-135289598388/latest/urql"
   

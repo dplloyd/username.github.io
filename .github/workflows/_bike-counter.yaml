@@ -29,12 +29,12 @@ jobs:
       - name: Render 
         uses: quarto-dev/quarto-actions/render@v2
         with:
-          path: index.qmd
+          path: bike-counter/index.qmd
         
       - name: Commit results
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add index.html
+          git add bike-counter/index.html
           git commit -m 'Cycling count data updated' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
