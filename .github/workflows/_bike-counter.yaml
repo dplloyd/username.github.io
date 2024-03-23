@@ -19,6 +19,7 @@ jobs:
             any::reactable
             any::reactablefmtr
             any::leaflet
+            any::httr2
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
