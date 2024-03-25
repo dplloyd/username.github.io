@@ -1,9 +1,12 @@
 on:
   schedule:
     - cron: '30 4 * * *'
+permissions:
+  contents: write
 
 jobs:
   update-report:
+  
     runs-on: ubuntu-latest
     steps:
       - name: Set up R
