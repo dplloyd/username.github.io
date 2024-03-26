@@ -1,8 +1,11 @@
 on:
   schedule:
     - cron: '30 4 * * *'
+    
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   update-report:
@@ -40,3 +43,22 @@ jobs:
           git add bike-counter/index.html
           git commit -m 'Cycling count data updated' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4          
