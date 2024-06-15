@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 7eb2fc15-4dbb-4c06-9241-27d9224c3e71
+      url: 'https://diarmuid.quarto.pub/testing-quarto-book'

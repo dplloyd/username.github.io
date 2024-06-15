@@ -1,0 +1,7 @@
+# Costs of Function
+
+This is a section all about the costs of functions
+
+```{r}
+1 + 1
+```

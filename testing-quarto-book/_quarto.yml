@@ -1,0 +1,28 @@
+project:
+  type: book
+
+book:
+  title: "testing-quarto-book"
+  author: "Norah Jones"
+  date: "6/15/2024"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - function_costs.qmd
+    - summary.qmd
+    - references.qmd
+  sidebar:
+    style: docked
+    background: light
+  
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: flatly
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
